@@ -1,0 +1,35 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+      id-token: write  # for npm trusted publishing via OIDC
+    steps:
+      - uses: step-security/harden-runner@6c3c2f2c1c457b00c10c4848d6f5491db3b629df # v2.18.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+
+      # npm trusted publishing requires npm >= 11.5.1
+      - run: npm install -g npm@latest
+
+      - run: npm ci
+      - run: npm run build
+
+      - run: npm publish --provenance

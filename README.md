@@ -12,6 +12,10 @@ Model Context Protocol (MCP) server for the [StepSecurity](https://www.stepsecur
 
 ## Install
 
+No install needed for most users — wire the published package into your MCP client via `npx` (see [Wire into an MCP client](#wire-into-an-mcp-client) below). `npx` will fetch `@stepsecurity/stepsecurity-mcp` from npm on first run.
+
+To hack on the server locally instead:
+
 ```bash
 git clone git@github.com:step-security/stepsecurity-mcp.git
 cd stepsecurity-mcp
@@ -53,8 +57,8 @@ Add to your project's `.mcp.json` (or user-level `~/.claude.json`):
 {
   "mcpServers": {
     "stepsecurity": {
-      "command": "node",
-      "args": ["/absolute/path/to/stepsecurity-mcp/dist/server.js"],
+      "command": "npx",
+      "args": ["-y", "@stepsecurity/stepsecurity-mcp"],
       "env": {
         "STEP_SECURITY_API_KEY": "${STEP_SECURITY_API_KEY}",
         "STEP_SECURITY_CUSTOMER": "your-tenant-name"
@@ -63,6 +67,8 @@ Add to your project's `.mcp.json` (or user-level `~/.claude.json`):
   }
 }
 ```
+
+If you're developing locally, swap `command` to `node` and `args` to `["/absolute/path/to/stepsecurity-mcp/dist/server.js"]`.
 
 Restart, then run `/mcp` to confirm the server connected.
 
