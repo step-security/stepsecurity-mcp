@@ -2,8 +2,6 @@
 
 Model Context Protocol (MCP) server for the [StepSecurity](https://www.stepsecurity.io) platform. Exposes a curated set of StepSecurity APIs as LLM-callable tools so you can investigate supply-chain and CI/CD security issues in plain English from Claude Desktop, Claude Code, Cursor, or any other MCP client.
 
-> Status: early WIP. Private repo; will be open-sourced once the tool surface stabilizes.
-
 ## Requirements
 
 - Node.js 22+
